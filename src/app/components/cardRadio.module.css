@@ -1,0 +1,46 @@
+.cardRadio {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin: 1rem 0 3rem;
+  border-radius: 4px;
+}
+.cardRadio:focus {
+  outline: 4px solid #01c46660;
+}
+
+.labeledGraphicCard {
+  flex-grow: 1;
+  border: 1px solid #d4d5d3;
+  border-radius: 4px;
+  background-color: white;
+}
+.labeledGraphicCard.checked {
+  border: 1px solid #01c466;
+  outline: 1px solid #01c466;
+}
+.labeledGraphicCard input {
+  display: none;
+}
+.labeledGraphicCard label {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+.graphic {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  border-radius: 2px;
+  padding: 1rem;
+  background-color: #edeee7;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+.graphic img {
+  height: 200px;
+  width: 200px;
+  resize: both;
+}

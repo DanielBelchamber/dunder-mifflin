@@ -1,0 +1,6 @@
+<svg viewbox='0 0 300 300' xmlns='http://www.w3.org/2000/svg' width='300' height='300'>
+  <rect x='10' y='10' width='280' height='80' fill='#d8d8d8' opacity='1' stroke='#989898' />
+  <rect x='10' y='110' width='130' height='130' fill='#d8d8d8' opacity='1' stroke='#989898' />
+  <rect x='160' y='110' width='130' height='130' fill='#d8d8d8' opacity='1' stroke='#989898' />
+  <rect x='10' y='260' width='280' height='30' fill='#d8d8d8' opacity='1' stroke='#989898' />
+</svg>
