@@ -3,30 +3,21 @@
 import Image from "next/image";
 import { ChangeEvent, useState } from "react";
 
+import { type LayoutOption } from "@/store/layout";
 import styles from "@/app/components/cardRadio.module.css";
-
-export type CardRadioOption = {
-  id: string;
-  label: string;
-  svg: string;
-  alt: string;
-};
 
 export default function CardRadio({
   name,
   options,
-  onSelect,
 }: {
   name: string;
-  options: CardRadioOption[];
-  onSelect: (id: string) => void;
+  options: LayoutOption[];
 }) {
   const [selected, setSelected] = useState<string>("header_2columns");
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     const selected = event.target.value;
     setSelected(selected);
-    onSelect(selected);
   };
 
   const isSelected = (id: string) => selected === id;
@@ -38,14 +29,12 @@ export default function CardRadio({
     if (index > 0 && (event.key === "ArrowUp" || event.key === "ArrowLeft")) {
       const newSelected = options[index - 1].id;
       setSelected(newSelected);
-      onSelect(newSelected);
     } else if (
       index < options.length - 1 &&
       (event.key === "ArrowDown" || event.key === "ArrowRight")
     ) {
       const newSelected = options[index + 1].id;
       setSelected(newSelected);
-      onSelect(newSelected);
     }
   };
 

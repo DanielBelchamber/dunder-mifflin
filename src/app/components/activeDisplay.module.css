@@ -1,0 +1,12 @@
+.background {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  border: 2px solid transparent;
+  padding: 1rem;
+  background-color: #edeee7;
+}
+.background.active {
+  border-color: #01c466;
+}

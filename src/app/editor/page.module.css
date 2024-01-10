@@ -1,0 +1,84 @@
+.editor {
+  --header-height: 50px;
+  --min-height: calc(100vh - var(--header-height));
+  --side-width: 250px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--header-height);
+  background-color: #494949;
+  color: white;
+}
+
+.main {
+  display: flex;
+  align-items: flex-start;
+  min-height: var(--min-height);
+}
+
+.side {
+  width: var(--side-width);
+  height: 100%;
+  min-height: var(--min-height);
+  background-color: white;
+}
+
+.outline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background-color: #f6f6f6;
+}
+.outline h1 {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.content {
+  position: relative;
+  flex-grow: 1;
+  height: 100%;
+  min-height: var(--min-height);
+  border: 2px solid #01c466;
+}
+.content .active {
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.9rem;
+  background-color: #01c466;
+  color: white;
+}
+
+.nav {
+  --nav-color: #767676;
+
+  border-top: 1px solid var(--nav-color);
+  border-bottom: 1px solid var(--nav-color);
+}
+.nav .section {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+.section.active {
+  background-color: var(--nav-color);
+  color: white;
+}
+.section .iconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  margin-right: 0.5rem;
+}

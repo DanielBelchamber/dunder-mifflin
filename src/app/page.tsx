@@ -1,38 +1,26 @@
 "use client";
 
-import styles from "@/app/page.module.css";
-import { chooseLayout } from "@/app/actions";
-import CardRadio, { type CardRadioOption } from "@/app/components/cardRadio";
+import { useRouter } from "next/navigation";
 
-const options: CardRadioOption[] = [
-  {
-    id: "header_2columns",
-    label: "Header - Two Columns",
-    svg: "/header_2columns.svg",
-    alt: "header with two columns",
-  },
-  {
-    id: "header_3columns",
-    label: "Header - Three Columns",
-    svg: "/header_3columns.svg",
-    alt: "header with three columns",
-  },
-  {
-    id: "headerfooter_2columns",
-    label: "Header/Footer - Two Columns",
-    svg: "/headerfooter_2columns.svg",
-    alt: "header and footer with two columns",
-  },
-];
+import { type Layout, LAYOUT_OPTIONS, useLayoutStore } from "@/store/layout";
+import styles from "@/app/page.module.css";
+import CardRadio from "@/app/components/cardRadio";
 
 export default function Home() {
-  const onRadioSelect = (id: string) => {
-    console.log(id);
+  const chooseLayout = useLayoutStore((state) => state.chooseLayout);
+  const router = useRouter();
+
+  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const layout = formData.get("layout") as Layout;
+    chooseLayout(layout);
+    router.push("/editor");
   };
 
   return (
     <main className={styles.main}>
-      <form action={chooseLayout}>
+      <form onSubmit={onSubmit}>
         {/* Content here is taken directly from 'Feature Details' but modified for clarity and to match 'Project Requirements' */}
         <section className={styles.description}>
           <h1>Select a layout for your single page website</h1>
@@ -53,7 +41,7 @@ export default function Home() {
         </section>
 
         {/* Use labeled graphic cards as radio options */}
-        <CardRadio name={"layout"} options={options} onSelect={onRadioSelect} />
+        <CardRadio name={"layout"} options={LAYOUT_OPTIONS} />
 
         {/* Form footer with a submit button that functions as a wizard navigation */}
         <div className={styles.footer}>
