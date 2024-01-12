@@ -1,0 +1,13 @@
+.customText {
+  width: 360px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 1rem;
+  font-size: 1.5rem;
+  text-align: center;
+  background-color: white;
+}
+.customText:focus {
+  outline: none;
+  border: 2px solid #01c466;
+}

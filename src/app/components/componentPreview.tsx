@@ -1,15 +1,22 @@
 import Image from "next/image";
 
-import { getBackground, getColorStyle, useLayoutStore } from "@/store/layout";
+import {
+  ContentEditor,
+  getBackground,
+  getColorStyle,
+  useLayoutStore,
+} from "@/store/layout";
 import styles from "@/app/components/componentPreview.module.css";
+import RichTextField from "@/app/components/richTextField";
 
-export default function ComponentPreview() {
-  const editor = useLayoutStore((state) => state.editor);
+export default function ComponentPreview({
+  editor,
+}: {
+  editor: ContentEditor;
+}) {
   const showTip = useLayoutStore((state) => state.showTip);
   const activeComponent = useLayoutStore((state) => state.activeComponent);
   const hideTip = useLayoutStore((state) => state.hideTip);
-
-  if (!editor) return null;
 
   const background = getBackground(activeComponent, editor);
 
@@ -25,24 +32,23 @@ export default function ComponentPreview() {
       <div className={styles.transparent}></div>
       <div className={styles.active}>{activeComponent}</div>
       {showTip && (
-        <div className={styles.instruction}>
-          <p>
-            <button className={styles.close} onClick={hideTip}>
-              <Image
-                src="/close.png"
-                alt="close"
-                width={12}
-                height={12}
-                priority
-              />
-            </button>
-            <span>
-              Use the panel on the right to add color and/or images to your
-              background
-            </span>
-          </p>
-        </div>
+        <p className={styles.instruction}>
+          <button className={styles.close} onClick={hideTip}>
+            <Image
+              src="/close.png"
+              alt="close"
+              width={12}
+              height={12}
+              priority
+            />
+          </button>
+          <span>
+            Use the panel on the right to add color and/or images to your
+            background
+          </span>
+        </p>
       )}
+      <RichTextField editor={editor} />
     </div>
   );
 }

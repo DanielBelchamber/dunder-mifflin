@@ -1,7 +1,7 @@
 import { create } from "zustand";
 
 /**
- * In theory, much of this could be provided via the server,
+ * In theory, the LAYOUT_OPTIONS could be provided via the server,
  * but as this is a POC Front-End project, I'm going to keep
  * it simple and just hard-code the options here.
  */
@@ -54,10 +54,10 @@ export type EditorSectionName =
 export type EditorSection = {
   name: EditorSectionName;
   background: EditorBackground;
-  content: string; // TODO: allow rich text
+  content?: string; // TODO: allow rich text
 };
 
-type ContentEditor = {
+export type ContentEditor = {
   layout: LayoutOption;
   background: EditorBackground;
   sections: EditorSection[];
@@ -66,7 +66,7 @@ type ContentEditor = {
 const createEmptySection = (name: EditorSectionName): EditorSection => ({
   name,
   background: {},
-  content: "",
+  content: undefined,
 });
 
 const createEditor = (layout: Layout): ContentEditor => {
@@ -130,6 +130,16 @@ export const getColorStyle = (color?: string): string => {
   else return `#${color}`;
 };
 
+export const getCustomText = (
+  componentName: EditorComponentName,
+  editor: ContentEditor
+): string | undefined => {
+  return componentName === "Background"
+    ? undefined
+    : editor.sections.find((section) => section.name === componentName)!
+        .content; // HACK: I know this will always be found
+};
+
 // useLayoutStore
 
 type State = {
@@ -145,6 +155,10 @@ type Actions = {
   updateBackground: (
     component: EditorComponentName,
     background: EditorBackground
+  ) => void;
+  updateTextContent: (
+    component: EditorComponentName,
+    content: string | undefined
   ) => void;
 };
 
@@ -182,5 +196,17 @@ export const useLayoutStore = create<State & Actions>((set) => ({
           : null,
       }));
     }
+  },
+  updateTextContent: (component, content) => {
+    set((state) => ({
+      editor: state.editor
+        ? {
+            ...state.editor,
+            sections: state.editor.sections.map((section) =>
+              section.name === component ? { ...section, content } : section
+            ),
+          }
+        : null,
+    }));
   },
 }));

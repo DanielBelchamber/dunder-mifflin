@@ -35,11 +35,11 @@ export default function Editor() {
         </section>
 
         {/* center - content editor */}
-        <ComponentPreview />
+        <ComponentPreview editor={editor} />
 
         {/* right - background editor */}
         <div className={styles.side}>
-          <BackgroundEditor />
+          <BackgroundEditor editor={editor} />
         </div>
       </main>
     </div>

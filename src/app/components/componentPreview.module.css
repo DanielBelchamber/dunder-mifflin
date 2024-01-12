@@ -1,6 +1,9 @@
 .content {
   position: relative;
   flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 100%;
   min-height: var(--min-height);
   border: 2px solid #01c466;
@@ -9,6 +12,7 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+
 .content .transparent {
   position: absolute;
   top: 0;
@@ -24,6 +28,7 @@
   background-size: 20px 20px;
   background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
 }
+
 .content .active {
   position: absolute;
   top: -2px;
@@ -33,15 +38,13 @@
   background-color: #01c466;
   color: white;
 }
+
 .content .instruction {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 6rem 0;
-}
-.instruction p {
-  position: relative;
+  position: absolute;
+  top: 6rem;
+  left: 50%;
   width: 360px;
+  margin-left: -180px;
   border: 1px solid #ccc;
   border-radius: 4px;
   padding: 1rem;

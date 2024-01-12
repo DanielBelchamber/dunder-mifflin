@@ -2,34 +2,43 @@ import { useState } from "react";
 import Image from "next/image";
 
 import {
+  ContentEditor,
   getBackground,
   getColorStyle,
+  getCustomText,
   isValidHexcolor,
   useLayoutStore,
 } from "@/store/layout";
 import styles from "@/app/components/backgroundEditor.module.css";
 
-export default function BackgroundEditor() {
-  const editor = useLayoutStore((state) => state.editor);
+export default function BackgroundEditor({
+  editor,
+}: {
+  editor: ContentEditor;
+}) {
   const activeComponent = useLayoutStore((state) => state.activeComponent);
   const updateBackground = useLayoutStore((state) => state.updateBackground);
+  const updateTextContent = useLayoutStore((state) => state.updateTextContent);
   const [context, setContext] = useState(activeComponent);
   const [src, setSrc] = useState("");
 
-  if (!editor) return null;
+  /**
+   * Component State Management
+   */
 
   const background = getBackground(activeComponent, editor);
-
-  // background color form
+  const customText = getCustomText(activeComponent, editor);
 
   if (context !== activeComponent) {
     // reset background color field if active component changes
     setContext(activeComponent);
+
     // update background color field
     const color = document.getElementById(
       "background-color"
     ) as HTMLInputElement;
     color.value = background.color ?? "";
+
     // update background image file and source
     const image = document.getElementById(
       "background-image"
@@ -37,6 +46,10 @@ export default function BackgroundEditor() {
     image.value = "";
     setSrc(background.image ? URL.createObjectURL(background.image) : "");
   }
+
+  /**
+   * Background Color Form
+   */
 
   const previewStyle = {
     backgroundColor: getColorStyle(background.color),
@@ -50,7 +63,9 @@ export default function BackgroundEditor() {
     }
   };
 
-  // background image form
+  /**
+   * Background Image Form
+   */
 
   const onChange = (e: React.FormEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
@@ -70,8 +85,21 @@ export default function BackgroundEditor() {
     updateBackground(activeComponent, { image: undefined });
   };
 
+  /**
+   * Custom Text Control
+   */
+
+  const addCustomText = () => {
+    updateTextContent(activeComponent, "");
+  };
+
+  const removeCustomText = () => {
+    updateTextContent(activeComponent, undefined);
+  };
+
   return (
     <>
+      {/* Background Color */}
       <form className={styles.atomicForm}>
         <h2>Background Color</h2>
         <div className={styles.inputGroup}>
@@ -88,6 +116,8 @@ export default function BackgroundEditor() {
           <div className={styles.preview} style={previewStyle}></div>
         </div>
       </form>
+
+      {/* Background Image */}
       <form className={styles.atomicForm}>
         <h2>Background Image</h2>
         {/* conditionally show image preview */}
@@ -118,7 +148,7 @@ export default function BackgroundEditor() {
               src="/image.png"
               alt="image icon"
               width={140}
-              height={100}
+              height={120}
               priority
             />
             <span>select image</span>
@@ -128,12 +158,22 @@ export default function BackgroundEditor() {
         {src && (
           <div className={styles.buttonRow}>
             <label htmlFor="background-image" className={styles.buttonLabel}>
-              replace
+              Replace
             </label>
-            <button onClick={removeImage}>remove</button>
+            <button onClick={removeImage}>Remove</button>
           </div>
         )}
       </form>
+
+      {/* Text Content Control */}
+      <div className={styles.textControl}>
+        {activeComponent !== "Background" && customText === undefined && (
+          <button onClick={addCustomText}>Add Custom Text</button>
+        )}
+        {activeComponent !== "Background" && customText !== undefined && (
+          <button onClick={removeCustomText}>Remove Custom Text</button>
+        )}
+      </div>
     </>
   );
 }
