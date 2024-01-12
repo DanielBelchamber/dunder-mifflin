@@ -11,3 +11,12 @@
   outline: none;
   border: 2px solid #01c466;
 }
+
+@media screen and (max-width: 660px) {
+  .customText {
+    width: auto;
+    max-width: 360px;
+    padding: 2px;
+    word-break: break-all;
+  }
+}

@@ -9,8 +9,19 @@
   align-items: center;
   justify-content: center;
   height: var(--header-height);
+  padding: 0 1rem;
   background-color: #494949;
   color: white;
+}
+.header span {
+  flex-grow: 1;
+  text-align: center;
+}
+.header img {
+  cursor: pointer;
+}
+.header img:focus {
+  outline: 4px solid #01c46688;
 }
 
 .main {
