@@ -1,0 +1,100 @@
+.preview {
+  --header-height: 50px;
+  --min-height: calc(100vh - var(--header-height));
+}
+
+.topBar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--header-height);
+  background-color: #494949;
+  color: white;
+}
+.topBar .back {
+  position: absolute;
+  left: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  height: 30px;
+  border: none;
+  border-radius: 15px;
+  padding: 0 20px;
+  background-color: black;
+  color: white;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+.back:focus {
+  outline: 4px solid #01c46688;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: var(--min-height);
+}
+
+.content {
+  height: 100%;
+  width: 100%;
+  max-width: var(--max-width);
+  padding: var(--header-height) 0;
+}
+
+.main,
+.section {
+  background-position-x: center;
+  background-position-y: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.columnRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--header-height);
+  flex-wrap: wrap;
+  min-height: 300px;
+}
+
+.section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+}
+.section.header {
+  margin-bottom: var(--header-height);
+  min-height: 500px;
+}
+.section.column {
+  height: 100%;
+  width: 300px;
+  flex-grow: 1;
+  flex-shrink: 0;
+}
+.section.footer {
+  margin-top: var(--header-height);
+  min-height: 100px;
+}
+.section p {
+  width: auto;
+  background-color: white;
+}
+
+.sectionContent {
+  width: 360px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 1rem;
+  font-size: 1.5rem;
+  text-align: center;
+  background-color: white;
+}

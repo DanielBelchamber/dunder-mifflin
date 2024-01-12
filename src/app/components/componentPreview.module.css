@@ -66,3 +66,6 @@
   background-color: white;
   cursor: pointer;
 }
+.close:focus {
+  outline: 4px solid #01c46688;
+}

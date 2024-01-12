@@ -4,6 +4,9 @@
   border-top: 1px solid var(--nav-color);
   border-bottom: 1px solid var(--nav-color);
 }
+.nav:focus {
+  outline: 4px solid #01c46688;
+}
 .nav .section {
   display: flex;
   align-items: center;

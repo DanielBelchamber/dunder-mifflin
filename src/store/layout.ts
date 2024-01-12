@@ -54,7 +54,7 @@ export type EditorSectionName =
 export type EditorSection = {
   name: EditorSectionName;
   background: EditorBackground;
-  content?: string; // TODO: allow rich text
+  content?: string;
 };
 
 export type ContentEditor = {
@@ -114,10 +114,13 @@ export const getBackground = (
   componentName: EditorComponentName,
   editor: ContentEditor
 ): EditorBackground => {
-  return componentName === "Background"
-    ? editor.background
-    : editor.sections.find((section) => section.name === componentName)!
-        .background; // HACK: I know this will always be found
+  if (componentName === "Background") return editor.background;
+  else {
+    const section = editor.sections.find(
+      (section) => section.name === componentName
+    );
+    return section ? section.background : {};
+  }
 };
 
 export const isValidHexcolor = (hexcolor: string): boolean => {
@@ -134,10 +137,13 @@ export const getCustomText = (
   componentName: EditorComponentName,
   editor: ContentEditor
 ): string | undefined => {
-  return componentName === "Background"
-    ? undefined
-    : editor.sections.find((section) => section.name === componentName)!
-        .content; // HACK: I know this will always be found
+  if (componentName === "Background") return undefined;
+  else {
+    const section = editor.sections.find(
+      (section) => section.name === componentName
+    );
+    return section ? section.content : undefined;
+  }
 };
 
 // useLayoutStore

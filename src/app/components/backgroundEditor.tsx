@@ -20,7 +20,6 @@ export default function BackgroundEditor({
   const updateBackground = useLayoutStore((state) => state.updateBackground);
   const updateTextContent = useLayoutStore((state) => state.updateTextContent);
   const [context, setContext] = useState(activeComponent);
-  const [src, setSrc] = useState("");
 
   /**
    * Component State Management
@@ -28,6 +27,12 @@ export default function BackgroundEditor({
 
   const background = getBackground(activeComponent, editor);
   const customText = getCustomText(activeComponent, editor);
+
+  const getImageSrc = () => {
+    return background.image ? URL.createObjectURL(background.image) : "";
+  };
+
+  const [src, setSrc] = useState(getImageSrc());
 
   if (context !== activeComponent) {
     // reset background color field if active component changes
@@ -43,8 +48,9 @@ export default function BackgroundEditor({
     const image = document.getElementById(
       "background-image"
     ) as HTMLInputElement;
-    image.value = "";
-    setSrc(background.image ? URL.createObjectURL(background.image) : "");
+    const source = getImageSrc();
+    if (!source) image.value = "";
+    setSrc(source);
   }
 
   /**
@@ -66,6 +72,15 @@ export default function BackgroundEditor({
   /**
    * Background Image Form
    */
+
+  const onKeyUp = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      const image = document.getElementById(
+        "background-image"
+      ) as HTMLInputElement;
+      image.click();
+    }
+  };
 
   const onChange = (e: React.FormEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
@@ -143,7 +158,12 @@ export default function BackgroundEditor({
         />
         {/* show full label if there is no saved image */}
         {!src && (
-          <label htmlFor="background-image" className={styles.imageLabel}>
+          <label
+            htmlFor="background-image"
+            className={styles.imageLabel}
+            tabIndex={0}
+            onKeyUp={onKeyUp}
+          >
             <Image
               src="/image.png"
               alt="image icon"
@@ -157,7 +177,12 @@ export default function BackgroundEditor({
         {/* if there is a saved image, offer options to choose a different one or remove the existing one */}
         {src && (
           <div className={styles.buttonRow}>
-            <label htmlFor="background-image" className={styles.buttonLabel}>
+            <label
+              htmlFor="background-image"
+              className={styles.buttonLabel}
+              tabIndex={0}
+              onKeyUp={onKeyUp}
+            >
               Replace
             </label>
             <button onClick={removeImage}>Remove</button>

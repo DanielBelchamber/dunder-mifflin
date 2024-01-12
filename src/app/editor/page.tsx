@@ -1,13 +1,14 @@
 "use client";
 
 import { redirect } from "next/navigation";
+import Link from "next/link";
 
 import { useLayoutStore } from "@/store/layout";
 import styles from "@/app/editor/page.module.css";
 import ActiveDisplay from "@/app/components/activeDisplay";
 import SectionNavigation from "@/app/components/sectionNavigation";
 import BackgroundEditor from "@/app/components/backgroundEditor";
-import ComponentPreview from "../components/componentPreview";
+import ComponentPreview from "@/app/components/componentPreview";
 
 export default function Editor() {
   const editor = useLayoutStore((state) => state.editor);
@@ -31,7 +32,14 @@ export default function Editor() {
           </div>
 
           {/* active section navigation */}
-          <SectionNavigation sections={editor.sections} />
+          <SectionNavigation editor={editor} />
+
+          {/* link to preview page */}
+          <div className={styles.linkWrapper}>
+            <Link className={styles.linkAction} href="/preview">
+              Preview Full Page
+            </Link>
+          </div>
         </section>
 
         {/* center - content editor */}

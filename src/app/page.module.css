@@ -3,8 +3,13 @@
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
-  padding: 2rem 6rem;
+  padding: 2rem;
   min-height: 100vh;
+}
+.main form {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
 }
 
 .description {
@@ -40,5 +45,5 @@
   cursor: pointer;
 }
 .submit:focus {
-  outline: 4px solid #01c46660;
+  outline: 4px solid #01c46688;
 }

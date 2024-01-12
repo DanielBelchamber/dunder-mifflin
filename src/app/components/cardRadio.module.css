@@ -1,15 +1,19 @@
 .cardRadio {
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
   gap: 1.5rem;
+  flex-wrap: wrap;
   margin: 1rem 0 3rem;
   border-radius: 4px;
 }
 .cardRadio:focus {
-  outline: 4px solid #01c46660;
+  outline: 4px solid #01c46688;
 }
 
 .labeledGraphicCard {
+  width: 280px;
+  max-width: 360px;
   flex-grow: 1;
   border: 1px solid #d4d5d3;
   border-radius: 4px;
@@ -40,7 +44,7 @@
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
 .graphic img {
-  height: 200px;
-  width: 200px;
+  height: 160px;
+  width: 160px;
   resize: both;
 }

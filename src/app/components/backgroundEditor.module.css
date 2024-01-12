@@ -70,6 +70,9 @@
   cursor: pointer;
   background-color: #f8f8f8;
 }
+.imageLabel:focus {
+  outline: 4px solid #01c46688;
+}
 .imageLabel img {
   margin: -1rem;
 }
@@ -99,8 +102,14 @@
   border-radius: 12px;
   background-color: #767676;
   color: white;
+  font-family: Roboto, sans-serif;
   font-size: 0.9rem;
+  font-weight: 500;
   cursor: pointer;
+}
+.buttonRow label:focus,
+.buttonRow button:focus {
+  outline: 4px solid #01c46688;
 }
 
 .textControl {
@@ -120,6 +129,11 @@
   padding: 0 20px;
   background-color: black;
   color: white;
+  font-family: Roboto, sans-serif;
   font-size: 0.9rem;
+  font-weight: 500;
   cursor: pointer;
+}
+.textControl button:focus {
+  outline: 4px solid #01c46688;
 }
