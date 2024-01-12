@@ -1,4 +1,4 @@
-import { ContentSection, Layout } from "@/store/layout";
+import { EditorComponentName, Layout } from "@/store/layout";
 import styles from "@/app/components/activeDisplay.module.css";
 
 const VECTOR_SIZE = 150;
@@ -11,7 +11,7 @@ export default function ActiveDisplay({
   active,
 }: {
   layout: Layout;
-  active: ContentSection;
+  active: EditorComponentName;
 }) {
   const backgroundStyle =
     active === "Background"

@@ -1,0 +1,24 @@
+.nav {
+  --nav-color: #767676;
+
+  border-top: 1px solid var(--nav-color);
+  border-bottom: 1px solid var(--nav-color);
+}
+.nav .section {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+.section.active {
+  background-color: var(--nav-color);
+  color: white;
+}
+.section .iconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  margin-right: 0.5rem;
+}

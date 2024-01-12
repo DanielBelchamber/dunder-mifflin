@@ -39,9 +39,9 @@ export const LAYOUT_OPTIONS: LayoutOption[] = [
   },
 ];
 
-type EditorBackground = {
+export type EditorBackground = {
   color?: string;
-  image?: string;
+  image?: File;
 };
 
 export type EditorSectionName =
@@ -51,7 +51,7 @@ export type EditorSectionName =
   | "Column 3"
   | "Footer";
 
-type EditorSection = {
+export type EditorSection = {
   name: EditorSectionName;
   background: EditorBackground;
   content: string; // TODO: allow rich text
@@ -106,23 +106,81 @@ const createEditor = (layout: Layout): ContentEditor => {
   }
 };
 
-export type ContentSection = EditorSectionName | "Background";
+export type EditorComponentName = EditorSectionName | "Background";
+
+// exported functions
+
+export const getBackground = (
+  componentName: EditorComponentName,
+  editor: ContentEditor
+): EditorBackground => {
+  return componentName === "Background"
+    ? editor.background
+    : editor.sections.find((section) => section.name === componentName)!
+        .background; // HACK: I know this will always be found
+};
+
+export const isValidHexcolor = (hexcolor: string): boolean => {
+  const regex = /^([0-9a-f]{3}){1,2}$/i;
+  return regex.test(hexcolor);
+};
+
+export const getColorStyle = (color?: string): string => {
+  if (!color || !isValidHexcolor(color)) return "transparent";
+  else return `#${color}`;
+};
+
+// useLayoutStore
 
 type State = {
   editor: ContentEditor | null;
-  activeSection: ContentSection;
+  showTip: boolean;
+  activeComponent: EditorComponentName;
 };
 
 type Actions = {
   chooseLayout: (layout: Layout) => void;
-  setActiveSection: (activeSection: ContentSection) => void;
-  updateContent: (editor: ContentEditor) => void;
+  hideTip: () => void;
+  setActiveComponent: (activeSection: EditorComponentName) => void;
+  updateBackground: (
+    component: EditorComponentName,
+    background: EditorBackground
+  ) => void;
 };
 
 export const useLayoutStore = create<State & Actions>((set) => ({
   editor: null,
-  activeSection: "Background",
+  showTip: true,
+  activeComponent: "Background",
   chooseLayout: (layout) => set({ editor: createEditor(layout) }),
-  setActiveSection: (activeSection) => set({ activeSection }),
-  updateContent: (editor) => set({ editor }),
+  hideTip: () => set({ showTip: false }),
+  setActiveComponent: (activeComponent) => set({ activeComponent }),
+  updateBackground: (component, background) => {
+    if (component === "Background") {
+      set((state) => ({
+        editor: state.editor
+          ? {
+              ...state.editor,
+              background: { ...state.editor.background, ...background },
+            }
+          : null,
+      }));
+    } else {
+      set((state) => ({
+        editor: state.editor
+          ? {
+              ...state.editor,
+              sections: state.editor.sections.map((section) =>
+                section.name === component
+                  ? {
+                      ...section,
+                      background: { ...section.background, ...background },
+                    }
+                  : section
+              ),
+            }
+          : null,
+      }));
+    }
+  },
 }));

@@ -34,7 +34,7 @@ export default function Home() {
               background
             </li>
             <li>
-              Any section can likewise contain a background image or color
+              Any section can likewise contain a background color or image
             </li>
             <li>Each section can also contain custom text</li>
           </ul>
